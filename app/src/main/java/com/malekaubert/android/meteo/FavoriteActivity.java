@@ -10,12 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.malekaubert.android.meteo.databinding.ActivityFavoriteBinding;
+import com.malekaubert.android.meteo.utils.Utils;
 
 public class FavoriteActivity extends AppCompatActivity {
 
     private ActivityFavoriteBinding binding;
+    private TextView mTextViewMessageSaisi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,10 @@ public class FavoriteActivity extends AppCompatActivity {
 
         binding = ActivityFavoriteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Bundle extras = getIntent().getExtras();
+
+        mTextViewMessageSaisi = (TextView) findViewById(R.id.text_view_message_saisi);
+        mTextViewMessageSaisi.setText("Message: " + extras.getString("message_saisi"));
 
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
