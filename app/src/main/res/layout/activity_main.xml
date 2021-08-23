@@ -1,79 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/text_view_deconnexion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pas de connexion internet"
-        android:layout_centerInParent="true"/>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/relative_layout_meteo">
+        android:layout_centerInParent="true"
+        android:text="Pas de connexion internet" />
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/relative_layout_meteo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:background="@color/background"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <TextView
-                android:id="@+id/text_view_city_name"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_view_city_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/city_name_dimen" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/city_desc"
+                    android:textColor="@color/text_color" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/city_name_dimen" />
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/city_desc"
-                android:textColor="@color/text_color" />
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/weather_sunny_white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="150dp"
+                    android:text="@string/city_temp"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/city_temperature_dimen" />
+            </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorPrimary"
+            android:text="Bouton1"
+            android:textColor="@color/black"
+            android:onClick="buttonClicked"/>
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/weather_sunny_white" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorPrimary"
+            android:text="Bouton2"
+            android:textColor="@color/black"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="150dp"
-                android:text="@string/city_temp"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/city_temperature_dimen" />
-        </LinearLayout>
-
-    </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/favorite_button"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="15dp"/>
-</RelativeLayout>
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorPrimary"
+            android:text="Bouton3"
+            android:textColor="@color/black"
+            android:onClick="buttonClicked"/>
+    </RelativeLayout>
 </RelativeLayout>
