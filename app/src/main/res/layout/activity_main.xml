@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/city_name"
+            android:textSize="@dimen/city_name_dimen"
             android:textColor="@color/text_color"/>
         <TextView
             android:layout_width="wrap_content"
@@ -35,15 +36,15 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/weather_sunny_white"
-            android:background="#BBBBBB"/>
+            android:src="@drawable/weather_sunny_white"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/city_temp"
-            android:layout_marginLeft="200dp"
+            android:layout_marginLeft="150dp"
             android:layout_gravity="center"
-            android:textColor="@color/text_color"/>
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/city_temperature_dimen"/>
     </LinearLayout>
 
 </LinearLayout>
