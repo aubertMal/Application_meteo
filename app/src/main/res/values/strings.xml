@@ -4,4 +4,6 @@
     <string name="city_desc">Sunny</string>
     <string name="city_temp">24°C</string>
     <string name="favorite_button">Favorites</string>
+    <string name="title_activity_favorite">Favorites</string>
+    <string name="action_settings">Settings</string>
 </resources>

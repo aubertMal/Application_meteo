@@ -5,4 +5,6 @@
     <string name="city_desc">Ensoleillé</string>
     <string name="city_temp">24°C</string>
     <string name="favorite_button">Favoris</string>
+    <string name="title_activity_favorite">Favoris</string>
+    <string name="action_settings">Paramètres</string>
 </resources>

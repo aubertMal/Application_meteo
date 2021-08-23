@@ -3,6 +3,7 @@ package com.malekaubert.android.meteo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -22,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextViewCityName;
     private RelativeLayout mRelativeLayoutMeteo;
     private TextView mTextViewDeconnexion;
-    private Button mButtonBouton2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         mTextViewCityName.setText(R.string.city_name);
         mRelativeLayoutMeteo = (RelativeLayout) findViewById(R.id.relative_layout_meteo);
         mTextViewDeconnexion = (TextView) findViewById(R.id.text_view_deconnexion);
-        mButtonBouton2 = (Button) findViewById(R.id.button2);
 
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -46,30 +45,10 @@ public class MainActivity extends AppCompatActivity {
             mRelativeLayoutMeteo.setVisibility(View.GONE);
             mTextViewDeconnexion.setVisibility(View.VISIBLE);
         }
-
-        mButtonBouton2.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Snackbar.make(v, "Clic sur le bouton 2", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null)
-                                .show();
-                    }
-                }
-        );
     }
 
-    public void buttonClicked(View view){
-        switch (view.getId()){
-            case R.id.button1:
-                Toast.makeText(this, "Clic sur Bouton 1", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.button3:
-                Toast.makeText(this, "Clic sur Bouton 3", Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                Toast.makeText(this, "Tu ne devrais pas être ici!!", Toast.LENGTH_SHORT).show();
-                break;
-        }
+    public void favoriteClicked(View view){
+        Intent intent = new Intent(this, FavoriteActivity.class);
+        startActivity(intent);
     }
 }
