@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.malekaubert.android.meteo.utils.Utils;
 
@@ -49,11 +50,15 @@ public class MainActivity extends AppCompatActivity {
             mRelativeLayoutMeteo.setVisibility(View.GONE);
             mTextViewDeconnexion.setVisibility(View.VISIBLE);
         }
-    }
 
-    public void favoriteClicked(View view){
-        Intent intent = new Intent(this, FavoriteActivity.class);
-        intent.putExtra(Utils.EDIT_TEXT_KEY,mEditTextSaisie.getText().toString());
-        startActivity(intent);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), FavoriteActivity.class);
+                intent.putExtra(Utils.EDIT_TEXT_KEY,mEditTextSaisie.getText().toString());
+                startActivity(intent);
+            }
+        });
     }
 }
