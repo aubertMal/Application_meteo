@@ -7,4 +7,5 @@
     <string name="favorite_button">Fav</string>
     <string name="title_activity_favorite">Favoris</string>
     <string name="action_settings">Paramètres</string>
+    <string name="favorites_title">Vos favoris</string>
 </resources>
