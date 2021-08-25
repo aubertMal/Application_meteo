@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,11 +27,21 @@ import com.malekaubert.android.meteo.adapters.FavoriteAdapter;
 import com.malekaubert.android.meteo.models.City;
 import com.malekaubert.android.meteo.utils.Utils;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class FavoriteActivity extends AppCompatActivity {
 
-    private ArrayList<City> mCities;
+    private ArrayList<City> mCities = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private FavoriteAdapter mAdapter;
     private Context mContext;
@@ -42,7 +53,6 @@ public class FavoriteActivity extends AppCompatActivity {
         mContext = this;
         setContentView(R.layout.activity_favorite);
         Bundle extras = getIntent().getExtras();
-        initCities();
 
         mRecyclerView = findViewById(R.id.my_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
@@ -71,8 +81,41 @@ public class FavoriteActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if (editTextCityName.getText().length()!=0){
                             Log.d("TAG","La ville ajoutée est " + editTextCityName.getText());
-                            mCities.add(new City(editTextCityName.getText().toString(),"Ensoleillé","27° C",R.drawable.weather_sunny_white));
-                            mAdapter.notifyDataSetChanged();
+
+                            OkHttpClient okHttpClient = new OkHttpClient();
+                            Handler handler = new Handler();
+                            Request request =
+                                    new Request.Builder()
+                                            .url(
+                                                    "https://api.openweathermap.org/data/2.5/weather?q="+editTextCityName.getText()+"&units=Metric&appid="+Utils.OPEN_WEATHER_KEY)
+                                            .build();
+                            okHttpClient
+                                    .newCall(request)
+                                    .enqueue(
+                                            new Callback() {
+                                                @Override
+                                                public void onFailure(@NotNull Call call, @NotNull IOException e) {}
+
+                                                @Override
+                                                public void onResponse(@NotNull Call call, @NotNull Response response)
+                                                        throws IOException {
+                                                    if (response.isSuccessful()) {
+                                                        final String stringJson = response.body().string();
+                                                        Log.d("TAG", stringJson);
+                                                        handler.post(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                try {
+                                                                    mCities.add(new City(stringJson));
+                                                                    mAdapter.notifyDataSetChanged();
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            });
                         }
                     }
                 });
@@ -80,17 +123,5 @@ public class FavoriteActivity extends AppCompatActivity {
                 builder.create().show();
             }
         });
-    }
-
-    void initCities(){
-        mCities = new ArrayList<>();
-        City city1 = new City("Montréal", "Légères pluies", "22°C", R.drawable.weather_rainy_grey);
-        City city2 = new City("New York", "Ensoleillé", "22°C", R.drawable.weather_sunny_grey);
-        City city3 = new City("Paris", "Nuageux", "24°C", R.drawable.weather_foggy_grey);
-        City city4 = new City("Toulouse", "Pluies modérées", "20°C", R.drawable.weather_rainy_grey);
-        mCities.add(city1);
-        mCities.add(city2);
-        mCities.add(city3);
-        mCities.add(city4);
     }
 }
