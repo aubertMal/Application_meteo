@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.malekaubert.android.meteo.R;
 import com.malekaubert.android.meteo.models.City;
 import com.malekaubert.android.meteo.utils.ApiCallBack;
+import com.malekaubert.android.meteo.utils.Constants;
 import com.malekaubert.android.meteo.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements ApiCallBack {
           @Override
           public void onClick(View v) {
             Intent intent = new Intent(v.getContext(), FavoriteActivity.class);
-            intent.putExtra(Utils.EDIT_TEXT_KEY, mEditTextSaisie.getText().toString());
+            intent.putExtra(Constants.EDIT_TEXT_KEY, mEditTextSaisie.getText().toString());
             startActivity(intent);
           }
         });
