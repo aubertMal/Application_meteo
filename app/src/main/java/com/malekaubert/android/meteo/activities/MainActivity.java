@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements ApiCallBack {
       mTextViewCityTemp.setText(mCurrentCity.mTemperature+" °C");
       mTextViewWeatherDescription.setText(mCurrentCity.mDescription);
       Picasso.get().setLoggingEnabled(true);
-      Log.d("TAG","https://openweathermap.org/img/wn/"+mCurrentCity.mWeatherResIconWhite+"@2x.png");
-      Picasso.get().load("https://openweathermap.org/img/wn/"+mCurrentCity.mWeatherResIconWhite+"@2x.png").into(mImageViewWeatherIcon);
+      Log.d("TAG","https://openweathermap.org/img/wn/"+mCurrentCity.mWeatherIcon+"@2x.png");
+      Picasso.get().load("https://openweathermap.org/img/wn/"+mCurrentCity.mWeatherIcon+"@2x.png").into(mImageViewWeatherIcon);
   }
 
     @Override

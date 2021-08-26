@@ -46,7 +46,7 @@ public class Utils {
     newCityValues.put(Constants.KEY_DESC, city.mDescription);
     newCityValues.put(Constants.KEY_LAT, city.mLatitude);
     newCityValues.put(Constants.KEY_LNG, city.mLongitude);
-    newCityValues.put(Constants.KEY_RES_ICON, city.mWeatherResIconWhite);
+    newCityValues.put(Constants.KEY_RES_ICON, city.mWeatherIcon);
 
     // Insérer la ligne
     long rowId = sqLiteDatabase.insert(Constants.TABLE_CITY, null, newCityValues);

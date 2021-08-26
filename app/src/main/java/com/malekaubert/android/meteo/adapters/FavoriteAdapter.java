@@ -41,8 +41,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     holder.mTextViewCityName.setText(city.mName);
     holder.mTextViewWeatherDescription.setText(city.mDescription);
     holder.mTextViewTemperature.setText(city.mTemperature);
-    Log.d("TAG", "https://openweathermap.org/img/wn/"+city.mWeatherResIconWhite+"@2x.png");
-    Picasso.get().load("https://openweathermap.org/img/wn/"+city.mWeatherResIconWhite+"@2x.png").into(holder.mImageViewWeather);
+    Log.d("TAG", "https://openweathermap.org/img/wn/"+city.mWeatherIcon+"@2x.png");
+    Picasso.get().load("https://openweathermap.org/img/wn/"+city.mWeatherIcon+"@2x.png").into(holder.mImageViewWeather);
     holder.position = position;
   }
 

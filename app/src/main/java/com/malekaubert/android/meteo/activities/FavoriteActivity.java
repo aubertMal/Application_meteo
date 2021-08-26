@@ -145,12 +145,15 @@ public class FavoriteActivity extends AppCompatActivity implements ApiCallBack {
   public void callBack(String strJson) {
     try {
       City newCity = new City(strJson);
-      mCities.add(newCity);
-      //Utils.saveFavoriteCities(this, mCities);
-      if (Utils.insertCityIntoDb(newCity, this) == -1) {
-        Toast.makeText(this, "Error when adding a city", Toast.LENGTH_SHORT).show();
+      //On vérifie si la ville n'est pas déjà dans les favoris
+      if (!cityInCities(mCities, newCity.mName)) {
+        mCities.add(newCity);
+        // Utils.saveFavoriteCities(this, mCities);
+        if (Utils.insertCityIntoDb(newCity, this) == -1) {
+          Toast.makeText(this, "Error when adding a city", Toast.LENGTH_SHORT).show();
+        }
+        mAdapter.notifyDataSetChanged();
       }
-      mAdapter.notifyDataSetChanged();
     } catch (JSONException e) {
       e.printStackTrace();
     }

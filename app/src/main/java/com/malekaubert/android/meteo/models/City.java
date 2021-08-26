@@ -9,7 +9,6 @@ public class City {
     public String mDescription;
     public String mTemperature;
     public String mWeatherIcon;
-    public String mWeatherResIconWhite;
     public String mStringJson;
     public int mIdDataBase;
 
@@ -31,7 +30,7 @@ public class City {
         mName = json.getString("name");
         mDescription = json.getJSONArray("weather").getJSONObject(0).getString("description");
         mTemperature = StringUtils.substringBefore(json.getJSONObject("main").getString("temp"),".");
-        mWeatherResIconWhite = json.getJSONArray("weather").getJSONObject(0).getString("icon");
+        mWeatherIcon = json.getJSONArray("weather").getJSONObject(0).getString("icon");
         mLatitude = Double.parseDouble(json.getJSONObject("coord").getString("lat"));
         mLongitude = Double.parseDouble(json.getJSONObject("coord").getString("lon"));
     }
