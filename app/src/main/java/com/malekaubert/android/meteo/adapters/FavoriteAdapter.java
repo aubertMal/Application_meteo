@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.malekaubert.android.meteo.R;
 import com.malekaubert.android.meteo.models.City;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     holder.mTextViewCityName.setText(city.mName);
     holder.mTextViewWeatherDescription.setText(city.mDescription);
     holder.mTextViewTemperature.setText(city.mTemperature);
-    holder.mImageViewWeather.setImageResource(city.mWeatherIcon);
+    Picasso.get().load("https://openweathermap.org/img/wn/"+city.mWeatherResIconWhite+"@2x.png").into(holder.mImageViewWeather);
     holder.position = position;
   }
 
@@ -63,25 +64,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
           (TextView) itemView.findViewById(R.id.text_view_weather_description);
       mTextViewTemperature = (TextView) itemView.findViewById(R.id.text_view_temperature);
       mImageViewWeather = (ImageView) itemView.findViewById(R.id.image_view_weather);
-      itemView.setOnLongClickListener(mOnLongClickListener);
-      itemView.setTag(this);
     }
   }
-  private View.OnLongClickListener mOnLongClickListener = new View.OnLongClickListener() {
-    @Override
-    public boolean onLongClick(View v) {
-      ViewHolder holder = (ViewHolder) v.getTag();
-      final int position = holder.position;
-
-      final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-      builder.setMessage("Etes vous sûr de vouloir supprimer cette ville?");
-      builder.setPositiveButton("Oui", (dialog, which) -> {
-        mCities.remove(position);
-        notifyDataSetChanged();
-      });
-      builder.setNegativeButton("Non", null);
-      builder.create().show();
-      return false;
-    }
-  };
 }

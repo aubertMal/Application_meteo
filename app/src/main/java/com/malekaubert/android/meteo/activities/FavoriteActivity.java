@@ -2,16 +2,16 @@ package com.malekaubert.android.meteo.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,13 +20,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.malekaubert.android.meteo.R;
 import com.malekaubert.android.meteo.adapters.FavoriteAdapter;
 import com.malekaubert.android.meteo.models.City;
 import com.malekaubert.android.meteo.utils.Utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 
@@ -45,6 +46,39 @@ public class FavoriteActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private FavoriteAdapter mAdapter;
     private Context mContext;
+    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NotNull RecyclerView.ViewHolder viewHolder, @NotNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NotNull RecyclerView.ViewHolder viewHolder, int direction) {
+            FavoriteAdapter.ViewHolder viewHolderSwipped= (FavoriteAdapter.ViewHolder) viewHolder;
+            City cityToRemove = mCities.get(viewHolderSwipped.position);
+            boolean cityExists = false;
+            mCities.remove(viewHolderSwipped.position);
+            mAdapter.notifyDataSetChanged();
+            for (City city : mCities) {
+                if (StringUtils.equals(city.mName,cityToRemove.mName)){
+                    cityExists = true;
+                }
+            }
+            if (!cityExists){
+
+                Snackbar.make(findViewById(R.id.my_coordinator_layout),cityToRemove.mName + " va être supprimée",Snackbar.LENGTH_LONG)
+                        .setAction("Annuler", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mCities.add(viewHolderSwipped.position,cityToRemove);
+                                Log.d("TAG","Suppression annulée");
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .show();
+            }
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +93,7 @@ public class FavoriteActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new FavoriteAdapter(this,mCities);
         mRecyclerView.setAdapter(mAdapter);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
