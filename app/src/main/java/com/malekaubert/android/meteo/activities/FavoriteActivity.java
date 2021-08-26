@@ -32,8 +32,6 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import java.util.ArrayList;
 
-import okhttp3.internal.Util;
-
 public class FavoriteActivity extends AppCompatActivity implements ApiCallBack {
 
   private ArrayList<City> mCities = new ArrayList<>();

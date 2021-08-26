@@ -67,15 +67,6 @@
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/edit_text_saisie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Votre message"
-            android:layout_centerInParent="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="150dp"/>
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"

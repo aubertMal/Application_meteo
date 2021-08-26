@@ -7,33 +7,19 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.malekaubert.android.meteo.R;
 import com.malekaubert.android.meteo.models.City;
 import com.malekaubert.android.meteo.utils.ApiCallBack;
-import com.malekaubert.android.meteo.utils.Constants;
 import com.malekaubert.android.meteo.utils.Utils;
 import com.squareup.picasso.Picasso;
-
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements ApiCallBack {
 
@@ -43,9 +29,6 @@ public class MainActivity extends AppCompatActivity implements ApiCallBack {
   private ImageView mImageViewWeatherIcon;
   private RelativeLayout mRelativeLayoutMeteo;
   private TextView mTextViewDeconnexion;
-  private EditText mEditTextSaisie;
-  private OkHttpClient mOkHttpClient;
-  private Handler mHandler;
   private City mCurrentCity;
 
   @Override
@@ -59,9 +42,6 @@ public class MainActivity extends AppCompatActivity implements ApiCallBack {
 
     mRelativeLayoutMeteo = (RelativeLayout) findViewById(R.id.relative_layout_meteo);
     mTextViewDeconnexion = (TextView) findViewById(R.id.text_view_deconnexion);
-    mEditTextSaisie = (EditText) findViewById(R.id.edit_text_saisie);
-    mOkHttpClient = new OkHttpClient();
-    mHandler = new Handler();
 
     ConnectivityManager connMgr =
         (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -84,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements ApiCallBack {
           @Override
           public void onClick(View v) {
             Intent intent = new Intent(v.getContext(), FavoriteActivity.class);
-            intent.putExtra(Constants.EDIT_TEXT_KEY, mEditTextSaisie.getText().toString());
             startActivity(intent);
           }
         });
