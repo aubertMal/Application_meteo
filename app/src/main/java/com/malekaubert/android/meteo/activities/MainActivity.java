@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.malekaubert.android.meteo.R;
 import com.malekaubert.android.meteo.models.City;
+import com.malekaubert.android.meteo.utils.ApiCallBack;
 import com.malekaubert.android.meteo.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -33,7 +34,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ApiCallBack {
 
   private TextView mTextViewCityName;
   private TextView mTextViewCityTemp;
@@ -69,38 +70,7 @@ public class MainActivity extends AppCompatActivity {
       Log.d("TAG", "Oui je suis connectée");
       mTextViewDeconnexion.setVisibility(View.GONE);
       mRelativeLayoutMeteo.setVisibility(View.VISIBLE);
-
-      Request request =
-          new Request.Builder()
-              .url(
-                  "https://api.openweathermap.org/data/2.5/weather?lat=47.390026&lon=0.688891&units=Metric&appid=252bb1313d94f4714db8f8f4624a4d1a")
-              .build();
-      mOkHttpClient
-          .newCall(request)
-          .enqueue(
-              new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {}
-
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response)
-                    throws IOException {
-                  if (response.isSuccessful()) {
-                    final String stringJson = response.body().string();
-                    Log.d("TAG", stringJson);
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                renderCurrentWeather(stringJson);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                  }
-                }
-              });
+      Utils.callAPIFromLongitudeAndLatitude(0.684452,47.390445,this);
     } else {
       Log.d("TAG", "NON, je ne suis pas connectée");
       mRelativeLayoutMeteo.setVisibility(View.GONE);
@@ -128,4 +98,13 @@ public class MainActivity extends AppCompatActivity {
       Log.d("TAG","https://openweathermap.org/img/wn/"+mCurrentCity.mWeatherResIconWhite+"@2x.png");
       Picasso.get().load("https://openweathermap.org/img/wn/"+mCurrentCity.mWeatherResIconWhite+"@2x.png").into(mImageViewWeatherIcon);
   }
+
+    @Override
+    public void callBack(String strJson) {
+        try {
+            renderCurrentWeather(strJson);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
