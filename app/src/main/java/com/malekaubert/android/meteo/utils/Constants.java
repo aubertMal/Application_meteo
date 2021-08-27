@@ -21,4 +21,6 @@ public class Constants {
     public static String urlByCityName = "https://api.openweathermap.org/data/2.5/weather?q=%s&units=Metric&appid="+OPEN_WEATHER_KEY;
     public static String urlByCityLongAndLatt = "https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&units=Metric&appid="+OPEN_WEATHER_KEY;
 
+    public static final int REQUEST_CODE = 1;
+
 }
